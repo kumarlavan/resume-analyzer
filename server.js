@@ -8,8 +8,8 @@ const app=express()
 app.use(cors())
 app.use(express.json())
 
-
-const upload=multer({dest:"uploads/"})
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 app.get("/test",(req,res)=>{
     res.json({message:"server is running fine"})
@@ -18,3 +18,6 @@ app.get("/test",(req,res)=>{
 app.post("/analyze-resume",upload.single("resume"),processResume);
 
 module.exports=app
+// app.listen(process.env.PORT,()=>{
+//     console.log("server is running")
+// })

@@ -1,4 +1,4 @@
-const fs=require("fs")
+
 const OpenAI =require("openai")
 const pdf = require("pdf-parse");
 const openai = new OpenAI({
@@ -7,10 +7,11 @@ const openai = new OpenAI({
 
  const processResume = async (req, res) => {
   try {
-      const filePath = req.file.path; // Path to the uploaded PDF file
-      // Extract text from the PDF
-      const dataBuffer = fs.readFileSync(filePath); // Read the file using fs
-      const data = await pdf(dataBuffer); // Parse the PDF
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+     
+      const data = await pdf(req.file.buffer); // Parse the PDF
       const resumeText = data.text; // Extract text from the request body
     const completion = openai.chat.completions.create({
       model: "gpt-4o-mini",
@@ -44,7 +45,6 @@ const openai = new OpenAI({
     .map(item => item.replace(/^\/\/\s*\d+\.\s*/, "")) // Remove numbering and "//"
     : [];
     // Send the response back to the client
-    fs.unlinkSync(filePath)
     res.json({ score, suggestions });
     });
   } catch (error) {
