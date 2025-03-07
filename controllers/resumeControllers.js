@@ -2,7 +2,7 @@ const fs=require("fs")
 const OpenAI =require("openai")
 const pdf = require("pdf-parse");
 const openai = new OpenAI({
-  apiKey: "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",
+  apiKey: process.env.CHATGPT_API_KEY,
 });
 
  const processResume = async (req, res) => {
