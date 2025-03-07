@@ -14,6 +14,4 @@ const upload=multer({dest:"uploads/"})
 
 app.post("/analyze-resume",upload.single("resume"),processResume);
 
-app.listen(process.env.PORT,()=>{
-    console.log("server is running")
-})
+module.exports=app
