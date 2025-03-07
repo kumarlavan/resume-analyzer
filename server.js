@@ -7,7 +7,7 @@ const processResume = require("./controllers/resumeControllers")
 const app=express()
 app.use(
     cors({
-      origin: "http://localhost:5173", // Allow requests from this origin
+      origin:"https://resume-analyzer-frontend-six.vercel.app", // Allow requests from this origin
       methods: ["GET", "POST"], // Allow only GET and POST requests
       credentials: true, // Allow cookies and credentials
     })
