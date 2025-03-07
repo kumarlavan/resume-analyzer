@@ -11,6 +11,9 @@ app.use(express.json())
 
 const upload=multer({dest:"uploads/"})
 
+app.get("/test",(req,res)=>{
+    res.json({message:"server is running fine"})
+})
 
 app.post("/analyze-resume",upload.single("resume"),processResume);
 
