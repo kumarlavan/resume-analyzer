@@ -5,7 +5,13 @@ const cors=require("cors")
 const processResume = require("./controllers/resumeControllers")
 
 const app=express()
-app.use(cors())
+app.use(
+    cors({
+      origin: "http://localhost:5173", // Allow requests from this origin
+      methods: ["GET", "POST"], // Allow only GET and POST requests
+      credentials: true, // Allow cookies and credentials
+    })
+  );
 app.use(express.json())
 
 const storage = multer.memoryStorage();
